@@ -1,5 +1,8 @@
 package com.example.guerraalantico.DTO;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,14 +11,15 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class PartidaDTO {
 
-  private int idPartida;
-  private LocalDate fechaAlta;
-  private LocalDate fechaGuardado;
+  private Integer idPartida;
+  private Date fechaAlta;
+  private Date fechaGuardado;
   private boolean finalizada;
-  private int idUsuarioGanador;
+  private String nombreUsuarioGanador;
+
 
 }

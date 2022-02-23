@@ -89,8 +89,7 @@ public class UsuarioBD {
       Connection con = DriverManager.getConnection
           (url, user, password);
 
-      PreparedStatement pstm;
-      pstm = con.prepareStatement(consultas.altaUsuario());
+      PreparedStatement pstm = con.prepareStatement(consultas.altaUsuario());
 
       pstm.setString(1,pNombreUsuario);
       pstm.setString(2,pPassword);

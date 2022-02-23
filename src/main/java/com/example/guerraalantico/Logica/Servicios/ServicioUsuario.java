@@ -3,6 +3,7 @@ package com.example.guerraalantico.Logica.Servicios;
 
 import com.example.guerraalantico.DTO.UsuarioDTO;
 import com.example.guerraalantico.Excepciones.PersistenciaException;
+import com.example.guerraalantico.Excepciones.UsuarioExistenteException;
 import com.example.guerraalantico.Persistencia.DAO.UsuarioBD;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +21,20 @@ public class ServicioUsuario implements IServicioUsuario {
 
   @Override
   public void guardarUsuario(UsuarioDTO pUsuario)  {
-   try{
-    this.usuarioBD.guardarUsuarioBD(pUsuario.getNombreUsuario(), pUsuario.getContrasenia());
-   }catch (PersistenciaException e){
+   try {
+    if (usuarioBD.existeUsuarioBD(pUsuario.getNombreUsuario())) {
+      throw new UsuarioExistenteException("El usuario "+ pUsuario.getNombreUsuario() + " ya existe en la base");
+    }
+    else {
+      this.usuarioBD.guardarUsuarioBD(pUsuario.getNombreUsuario(), pUsuario.getContrasenia());
+    }
+   } catch (PersistenciaException e) {
+
    }
   }
 
-  @Override
-  public boolean existeUsuario(String pNombreUsuario){
+
+  private boolean existeUsuario(String pNombreUsuario){
     try{
     return this.usuarioBD.existeUsuarioBD(pNombreUsuario);
     }

@@ -1,6 +1,7 @@
 package com.example.guerraalantico.Persistencia.DAO;
 
 import com.example.guerraalantico.DTO.EquipoDTO;
+import com.example.guerraalantico.DTO.NaveDTO;
 import com.example.guerraalantico.Excepciones.PersistenciaException;
 import com.example.guerraalantico.Persistencia.Consultas.Consultas;
 import java.sql.Connection;
@@ -47,8 +48,8 @@ public class EquipoBD {
 
       pstm.setInt(1,pCodigoPartida);
       ResultSet rs = pstm.executeQuery();
-      if(rs.next()){
-        EquipoDTO equipoDTO = new EquipoDTO();
+      while(rs.next()){
+        EquipoDTO equipoDTO = new EquipoDTO(rs.getInt("EquIdEquipo"), rs.getInt("BanIdBando"), rs.getInt("UsuIdUsuario"));
         listaEquipos.add(equipoDTO);
       }
       rs.close();
@@ -59,7 +60,36 @@ public class EquipoBD {
       throw new PersistenciaException(e.getMessage());
     }
     return listaEquipos;
-
   }
+
+  public  List<NaveDTO> obtenerNavesPorEquipoBD(int pCodigoEquipo) throws PersistenciaException {
+
+    List<NaveDTO> listaNaves = new ArrayList<>();
+
+    try {
+      Connection con = DriverManager.getConnection
+              (url, user, password);
+
+      PreparedStatement pstm;
+      pstm = con.prepareStatement(consultas.obtenerNavesPorEquipo());
+
+      pstm.setInt(1,pCodigoEquipo);
+      ResultSet rs = pstm.executeQuery();
+      while(rs.next()){
+        NaveDTO naveDTO = new NaveDTO(rs.getInt("NavIdNave"), rs.getString("NavTipoNave"),
+                rs.getInt("RENCoordenadasX"), rs.getInt("RenCoordenadasY"),
+                rs.getInt("RENResistenciaActual"), rs.getInt("RenProfundidadActual"));
+        listaNaves.add(naveDTO);
+      }
+      rs.close();
+      pstm.close();
+      con.close();
+    }
+    catch (SQLException e) {
+      throw new PersistenciaException(e.getMessage());
+    }
+    return listaNaves;
+  }
+
 
 }

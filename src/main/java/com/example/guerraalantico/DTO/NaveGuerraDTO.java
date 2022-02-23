@@ -12,7 +12,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class NaveGuerraDTO extends NaveDTO{
 
-	private int profundidadActual;
 	private List<ArmaDTO> armas;
 	private List<AlcanceVistaDTO> vistas;
 

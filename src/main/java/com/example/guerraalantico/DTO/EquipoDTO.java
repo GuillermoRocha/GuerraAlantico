@@ -15,6 +15,12 @@ public class EquipoDTO {
 
 	private int idEquipo;
 	private int bando;
-	private Usuario usuario;
+	private int idUsuario;
 	private List<NaveDTO> naves;
+
+	public EquipoDTO(int pIdEquipo, int pIdBando, int pIdUsuario){
+		this.idEquipo = pIdEquipo;
+		this.bando = pIdBando;
+		this.idUsuario =pIdUsuario;
+	}
 }

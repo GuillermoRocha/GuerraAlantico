@@ -3,7 +3,6 @@ package com.example.guerraalantico.Persistencia.DAO;
 import com.example.guerraalantico.DTO.AlcanceVistaDTO;
 import com.example.guerraalantico.DTO.ArmaDTO;
 import com.example.guerraalantico.DTO.NaveDTO;
-import com.example.guerraalantico.DTO.PartidaDTO;
 import com.example.guerraalantico.DTO.VelocidadDTO;
 import com.example.guerraalantico.Excepciones.PersistenciaException;
 import com.example.guerraalantico.Persistencia.Consultas.Consultas;
@@ -48,7 +47,7 @@ public class NavesBD {
       pstm.setInt(1,pCodigoNave);
       ResultSet rs = pstm.executeQuery();
       if(rs.next()){
-        naveDTO.setIdNave(rs.getInt("NavIdNave"));
+        naveDTO.setIdTipoNave(rs.getInt("NavIdNave"));
         naveDTO.setTipoNave(rs.getString("NavTipoNave"));
         naveDTO.setResistencia(rs.getInt("NavResistencia"));
       }
