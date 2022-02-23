@@ -1,14 +1,14 @@
 package com.example.guerraalantico.Logica.Servicios;
 
 
-import com.example.guerraalantico.DTO.AltaPartidaDTO;
-import com.example.guerraalantico.DTO.EquipoDTO;
-import com.example.guerraalantico.DTO.PartidaDTO;
-import com.example.guerraalantico.DTO.PartidaDetalladaDTO;
+import com.example.guerraalantico.DTO.*;
+import com.example.guerraalantico.DTO.request.GuardarNaveDTO;
 import com.example.guerraalantico.Excepciones.PersistenciaException;
 import com.example.guerraalantico.Persistencia.DAO.EquipoBD;
 import com.example.guerraalantico.Persistencia.DAO.PartidaBD;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,11 +42,14 @@ public class ServicioPartida implements IServicioPartida {
   public PartidaDetalladaDTO retomarPartida(int pCodigoPartida){
     try
     {
-      PartidaDetalladaDTO partidaDetalladaDTO  = objectMapper.convertValue(partidaBD.obtenerPartidaPorIdDB(pCodigoPartida),
-          PartidaDetalladaDTO.class);
+      PartidaDetalladaDTO partidaDetalladaDTO = new PartidaDetalladaDTO();
+      partidaDetalladaDTO.setPartida(partidaBD.obtenerPartidaPorIdDB(pCodigoPartida));
       List<EquipoDTO> listaEquipos = equipoBD.obtenerEquiposPorPartidasBD(pCodigoPartida);
       partidaDetalladaDTO.setEquipos(listaEquipos);
 
+      for (EquipoDTO equipo : listaEquipos) {
+        equipo.setNaves(equipoBD.obtenerNavesPorEquipoBD(equipo.getIdEquipo()));
+      }
       return partidaDetalladaDTO;
 
     }catch (PersistenciaException e){
@@ -55,17 +58,18 @@ public class ServicioPartida implements IServicioPartida {
     return null;
   }
 
-  public void guardarPartida(PartidaDetalladaDTO pPartidaDetallada){
+  public void guardarPartida(GuardarNaveDTO pGuardarNave){
 
     try{
-      partidaBD.guardarPartidaDB(pPartidaDetallada.getPartida());
-      for (EquipoDTO equipo : pPartidaDetallada.getEquipos()
-      ) {
-        servicioEquipo.guardarEquipo(equipo);
-      }
+        partidaBD.guardarPartidaDB(pGuardarNave);
     }catch (PersistenciaException e){
     }
 
+  }
+
+  @Override
+  public void finalizarPartida(PartidaFinalzadaDTO pPartidaFinalizadaDTO) throws SQLException {
+    partidaBD.finalizarPartidaDB(pPartidaFinalizadaDTO.getIdPartida(), pPartidaFinalizadaDTO.getIdUsuarioGanador());
   }
 
   public int altaPartida(AltaPartidaDTO pAltaPartida){

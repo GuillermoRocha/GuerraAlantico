@@ -3,7 +3,11 @@ package com.example.guerraalantico.Controladores;
 import com.example.guerraalantico.DTO.AltaPartidaDTO;
 import com.example.guerraalantico.DTO.PartidaDTO;
 import com.example.guerraalantico.DTO.PartidaDetalladaDTO;
+import com.example.guerraalantico.DTO.PartidaFinalzadaDTO;
+import com.example.guerraalantico.DTO.request.GuardarNaveDTO;
 import com.example.guerraalantico.Logica.Servicios.IServicioPartida;
+
+import java.sql.SQLException;
 import java.util.List;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,8 +45,14 @@ public class PartidaController {
 
   @Operation(summary = "Guardar una partida")
   @PostMapping("/partida/guardar")
-  public void guardarPartidaDTO(@RequestBody PartidaDetalladaDTO pPartidaDetallada){
-    servicioPartida.guardarPartida(pPartidaDetallada);
+  public void guardarPartidaDTO(@RequestBody GuardarNaveDTO pGuardarNaveDTO){
+    servicioPartida.guardarPartida(pGuardarNaveDTO);
+  }
+
+  @Operation(summary = "Finalizar una partida")
+  @PostMapping("/partida/finalizar")
+  public void finalizarPartida(@RequestBody PartidaFinalzadaDTO pPartidaFinalizadaDTO) throws SQLException {
+    servicioPartida.finalizarPartida(pPartidaFinalizadaDTO);
   }
 
 }

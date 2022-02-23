@@ -6,8 +6,6 @@ public interface IServicioUsuario {
 
   void guardarUsuario(UsuarioDTO pUsuario);
 
-  boolean existeUsuario(String pNombreUsuario);
-
   UsuarioDTO obtenerUsuario(UsuarioDTO pUsuario);
 
 

@@ -1,6 +1,8 @@
 package com.example.guerraalantico.Persistencia.DAO;
 
 import com.example.guerraalantico.DTO.PartidaDTO;
+import com.example.guerraalantico.DTO.PartidaDetalladaDTO;
+import com.example.guerraalantico.DTO.request.GuardarNaveDTO;
 import com.example.guerraalantico.Excepciones.PersistenciaException;
 import com.example.guerraalantico.Logica.Entidades.PartidaDetallada;
 import com.example.guerraalantico.Persistencia.Consultas.Consultas;
@@ -10,6 +12,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +47,9 @@ public class PartidaBD {
 
       pstm.setString(1,pUsername);
       ResultSet rs = pstm.executeQuery();
-      if(rs.next()){
-        PartidaDTO partidaDTO = new PartidaDTO();
+      while(rs.next()){
+        PartidaDTO partidaDTO = new PartidaDTO(rs.getInt("ParIdPartida"), rs.getDate("ParFechaAlta"),
+                rs.getDate("ParFechaGuardado"), rs.getBoolean("ParFinalizada"), rs.getString("UsuNombreUsuario"));
         listaPartidas.add(partidaDTO);
       }
       rs.close();
@@ -83,46 +87,46 @@ public class PartidaBD {
     return vCodigoPartida;
   }
 
-  public void guardarPartidaDB(PartidaDTO pPartida) throws PersistenciaException {
+  public void guardarPartidaDB(GuardarNaveDTO pGuardarNavea) throws PersistenciaException {
 
-//    try {
-//      Connection con = DriverManager.getConnection
-//          (url, user, password);
-//
-//      PreparedStatement pstm;
-//      pstm = con.prepareStatement(consultas.());
-//
-//      pstm.setDate(1, pPartida.getFechaAlta());
-//      pstm.setDate(2, pPartida.getFechaGuardado());
-//      pstm.setBoolean(3, pPartida.isFinalizada());
-//      pstm.setInt(4, pPartida.getIdUsuarioGanador());
-//      ResultSet rs = pstm.executeUpdate();
-//      if(rs.next()){
-//      }
-//      rs.close();
-//      pstm.close();
-//      con.close();
-//    }
-//    catch (SQLException e) {
-//      throw new PersistenciaException(e.getMessage());
-//    }
-
-  }
-
-  public PartidaDetallada obtenerPartidaPorIdDB(int pCodigoPartida) throws PersistenciaException {
-
-    PartidaDetallada partidaDetallada = new PartidaDetallada();
     try {
       Connection con = DriverManager.getConnection
           (url, user, password);
 
-      PreparedStatement pstm;
-      pstm = con.prepareStatement(consultas.altaPartida());
+      CallableStatement cstmt = con.prepareCall(consultas.guardarPartida());
+      cstmt.setInt(1, pGuardarNavea.getIdEquipo());
+      cstmt.setInt(2, pGuardarNavea.getIdNave());
+      cstmt.setInt(3, pGuardarNavea.getCoordenadasX());
+      cstmt.setInt(4, pGuardarNavea.getCoordenadaY());
+      cstmt.setInt(5, pGuardarNavea.getResistencia());
+      cstmt.setInt(6, pGuardarNavea.getProfundidadActual());
 
+      cstmt.executeUpdate();
+
+      cstmt.close();
+      con.close();
+    }
+    catch (SQLException e) {
+      throw new PersistenciaException(e.getMessage());
+    }
+  }
+
+  public PartidaDTO obtenerPartidaPorIdDB(int pCodigoPartida) throws PersistenciaException {
+
+    PartidaDTO partidaDTO = new PartidaDTO();
+    try {
+      Connection con = DriverManager.getConnection
+          (url, user, password);
+
+      PreparedStatement pstm = con.prepareStatement(consultas.obtenerPartidaporId());
       pstm.setInt(1,pCodigoPartida);
+
       ResultSet rs = pstm.executeQuery();
       if(rs.next()){
-
+        partidaDTO.setIdPartida(rs.getInt("ParIdPartida"));
+        partidaDTO.setFechaAlta(rs.getDate("ParFechaAlta"));
+        partidaDTO.setFechaGuardado(rs.getDate("ParFechaGuardado"));
+        partidaDTO.setFinalizada(rs.getBoolean("ParFinalizada"));
       }
       rs.close();
       pstm.close();
@@ -131,8 +135,22 @@ public class PartidaBD {
     catch (SQLException e) {
       throw new PersistenciaException(e.getMessage());
     }
-    return partidaDetallada;
+    return partidaDTO;
   }
 
+
+  public void finalizarPartidaDB(int pidPartida, int pIdUsuarioGanador) throws SQLException {
+
+    Connection con = DriverManager.getConnection
+              (url, user, password);
+    PreparedStatement pstm = con.prepareStatement(consultas.finalizarPartida());
+    pstm.setInt(1, pidPartida);
+    pstm.setInt(2, pIdUsuarioGanador);
+
+    pstm.executeUpdate();
+
+    pstm.close();
+      con.close();
+    }
 
 }

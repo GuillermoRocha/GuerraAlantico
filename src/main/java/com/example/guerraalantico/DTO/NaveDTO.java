@@ -11,10 +11,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class NaveDTO {
 
-	private int idNave;
+	private int idTipoNave;
 	private String tipoNave;
-	private int resistencia;
 	private int coordenadasX;
 	private int coordenadaY;
+	private int resistencia;
+	private int profundidadActual;
 
 }
