@@ -1,12 +1,12 @@
 package com.example.guerraalantico.Excepciones;
 
+import org.springframework.http.HttpStatus;
+
 public class UsuarioExistenteException extends ApiException{
 
-    public static final String BAD_REQUEST_ERROR_CODE = "bad_request";
 
     public UsuarioExistenteException(String message) {
-        super("", message, 400);
+        super(HttpStatus.BAD_REQUEST.name(), message, HttpStatus.BAD_REQUEST.value());
     }
-
 
 }

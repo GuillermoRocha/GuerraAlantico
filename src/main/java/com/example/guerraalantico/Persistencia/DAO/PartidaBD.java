@@ -55,9 +55,9 @@ public class PartidaBD {
       rs.close();
       pstm.close();
       con.close();
-    }
-    catch (SQLException e) {
-      throw new PersistenciaException(e.getMessage());
+
+    } catch (SQLException e) {
+        throw new PersistenciaException();
     }
     return listaPartidas;
 
@@ -80,9 +80,9 @@ public class PartidaBD {
 
       cstmt.close();
       con.close();
-    }
-    catch (SQLException e) {
-      throw new PersistenciaException(e.getMessage());
+
+    } catch (SQLException e) {
+       throw new PersistenciaException();
     }
     return vCodigoPartida;
   }
@@ -105,9 +105,9 @@ public class PartidaBD {
 
       cstmt.close();
       con.close();
-    }
-    catch (SQLException e) {
-      throw new PersistenciaException(e.getMessage());
+
+    } catch (SQLException e) {
+        throw new PersistenciaException();
     }
   }
 
@@ -133,24 +133,53 @@ public class PartidaBD {
       con.close();
     }
     catch (SQLException e) {
-      throw new PersistenciaException(e.getMessage());
+      throw new PersistenciaException();
     }
     return partidaDTO;
   }
 
 
-  public void finalizarPartidaDB(int pidPartida, int pIdUsuarioGanador) throws SQLException {
+  public void finalizarPartidaDB(int pidPartida, int pIdUsuarioGanador) throws PersistenciaException {
 
-    Connection con = DriverManager.getConnection
+    try {
+      Connection con = DriverManager.getConnection
               (url, user, password);
-    PreparedStatement pstm = con.prepareStatement(consultas.finalizarPartida());
-    pstm.setInt(1, pidPartida);
-    pstm.setInt(2, pIdUsuarioGanador);
+      PreparedStatement pstm = con.prepareStatement(consultas.finalizarPartida());
+      pstm.setInt(1, pidPartida);
+      pstm.setInt(2, pIdUsuarioGanador);
 
-    pstm.executeUpdate();
+      pstm.executeUpdate();
 
-    pstm.close();
+      pstm.close();
       con.close();
+
+    } catch (SQLException e) {
+         throw new PersistenciaException();
+    }
+  }
+
+    public boolean existePartidaBD (int pCodigoPartida){
+
+      boolean existe;
+
+      try {
+        Connection con = DriverManager.getConnection
+                (url, user, password);
+
+        PreparedStatement pstm = con.prepareStatement(consultas.obtenerPartidaporId());
+        pstm.setInt(1, pCodigoPartida);
+
+        ResultSet rs = pstm.executeQuery();
+        existe = rs.next();
+
+        rs.close();
+        pstm.close();
+        con.close();
+      } catch (SQLException e) {
+          throw new PersistenciaException();
+      }
+      return existe;
+
     }
 
 }

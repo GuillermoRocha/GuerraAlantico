@@ -27,7 +27,7 @@ public class PartidaController {
   @Operation(summary = "Obtener las partidas de un usuario")
   @GetMapping("/partida/{pUsername}")
   public List<PartidaDTO> obtenerPartidasPorUsuario(@PathVariable String pUsername){
-    return servicioPartida.obtenerPartidas(pUsername);
+    return servicioPartida.obtenerPartidasPorUsuario(pUsername);
   }
 
   @Operation(summary = "Obtener los datos de una partida a retomar")
