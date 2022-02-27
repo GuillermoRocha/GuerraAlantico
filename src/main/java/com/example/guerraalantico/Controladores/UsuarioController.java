@@ -6,6 +6,8 @@ import com.example.guerraalantico.Excepciones.UsuarioExistenteException;
 import com.example.guerraalantico.Logica.Servicios.IServicioUsuario;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +29,14 @@ public class UsuarioController {
   @Operation(summary = "Obtener un usuario")
   @PostMapping("/usuario")
   public UsuarioDTO obtenerUsuario(@RequestBody UsuarioDTO pUsuario){
-    return servicioUsuario.obtenerUsuario(pUsuario);
+
+    return this.servicioUsuario.obtenerUsuario(pUsuario);
+//    if(usuarioDTO.getIdUsuario() != 0)
+//    {
+//      return new ResponseEntity<>(usuarioDTO, HttpStatus.OK);
+//    }
+//    else
+//      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
   }
 
 }

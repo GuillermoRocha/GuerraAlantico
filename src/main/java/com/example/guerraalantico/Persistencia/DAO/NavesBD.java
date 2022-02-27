@@ -54,9 +54,9 @@ public class NavesBD {
       rs.close();
       pstm.close();
       con.close();
-    }
-    catch (SQLException e) {
-      throw new PersistenciaException(e.getMessage());
+
+    } catch (SQLException e) {
+      throw new PersistenciaException();
     }
     return naveDTO;
 
@@ -66,6 +66,7 @@ public class NavesBD {
   public List<VelocidadDTO> obtenerVelocidadesBD(int pCodigoNave) throws PersistenciaException {
 
     List<VelocidadDTO> listaVelocidades = new ArrayList<>();
+
     try {
       Connection con = DriverManager.getConnection
           (url, user, password);
@@ -83,9 +84,9 @@ public class NavesBD {
       rs.close();
       pstm.close();
       con.close();
-    }
-    catch (SQLException e) {
-      throw new PersistenciaException(e.getMessage());
+
+    } catch (SQLException e) {
+      throw new PersistenciaException();
     }
     return listaVelocidades;
 
@@ -111,9 +112,9 @@ public class NavesBD {
       rs.close();
       pstm.close();
       con.close();
-    }
-    catch (SQLException e) {
-      throw new PersistenciaException(e.getMessage());
+
+    } catch (SQLException e) {
+      throw new PersistenciaException();
     }
     return listaAlcanceVistas;
 
@@ -139,9 +140,9 @@ public class NavesBD {
       rs.close();
       pstm.close();
       con.close();
-    }
-    catch (SQLException e) {
-      throw new PersistenciaException(e.getMessage());
+
+    } catch (SQLException e) {
+      throw new PersistenciaException();
     }
     return listaArmas;
   }

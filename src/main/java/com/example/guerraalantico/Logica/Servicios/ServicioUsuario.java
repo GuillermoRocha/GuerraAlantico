@@ -2,8 +2,8 @@ package com.example.guerraalantico.Logica.Servicios;
 
 
 import com.example.guerraalantico.DTO.UsuarioDTO;
-import com.example.guerraalantico.Excepciones.PersistenciaException;
 import com.example.guerraalantico.Excepciones.UsuarioExistenteException;
+import com.example.guerraalantico.Excepciones.UsuarioNoExisteException;
 import com.example.guerraalantico.Persistencia.DAO.UsuarioBD;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,36 +21,33 @@ public class ServicioUsuario implements IServicioUsuario {
 
   @Override
   public void guardarUsuario(UsuarioDTO pUsuario)  {
-   try {
-    if (usuarioBD.existeUsuarioBD(pUsuario.getNombreUsuario())) {
-      throw new UsuarioExistenteException("El usuario "+ pUsuario.getNombreUsuario() + " ya existe en la base");
-    }
-    else {
-      this.usuarioBD.guardarUsuarioBD(pUsuario.getNombreUsuario(), pUsuario.getContrasenia());
-    }
-   } catch (PersistenciaException e) {
 
-   }
+      if(!existeUsuarioPorNombre(pUsuario.getNombreUsuario())) {
+          this.usuarioBD.guardarUsuarioBD(pUsuario.getNombreUsuario(), pUsuario.getContrasenia());
+      } else {
+          throw new UsuarioExistenteException(String.format("Usuario %s en uso, ingrese otro nombre.",
+                  pUsuario.getNombreUsuario()));
+      }
   }
 
-
-  private boolean existeUsuario(String pNombreUsuario){
-    try{
-    return this.usuarioBD.existeUsuarioBD(pNombreUsuario);
-    }
-    catch (PersistenciaException e){
-    }
-    return false;
+  public UsuarioDTO obtenerUsuario(UsuarioDTO pUsuario) {
+      if(existeUsuarioPorNombreYContrasenia(pUsuario)) {
+          return objectMapper.convertValue(
+                  this.usuarioBD.obtenerUsuarioBD(pUsuario.getNombreUsuario(),
+                          pUsuario.getContrasenia()), UsuarioDTO.class);
+      } else {
+          throw new UsuarioNoExisteException(String.format("No se reconoce el usuario/contraseña ingresado.",
+                  pUsuario.getNombreUsuario()));
+      }
   }
 
+    public boolean existeUsuarioPorNombre(String pNombreUsuario){
+        return this.usuarioBD.existeUsuarioBD(pNombreUsuario);
+    }
 
-  public UsuarioDTO obtenerUsuario(UsuarioDTO pUsuario)  {
-    try {
-      return objectMapper.convertValue(
-          this.usuarioBD.obtenerUsuarioBD(pUsuario.getNombreUsuario(), pUsuario.getContrasenia()), UsuarioDTO.class);
+    private boolean existeUsuarioPorNombreYContrasenia(UsuarioDTO pUsuario){
+        return this.usuarioBD.existeUsuarioPorNombreYContraseniaBD(pUsuario);
     }
-    catch (PersistenciaException e) {
-    }
-    return  null;
-  }
+
+
 }

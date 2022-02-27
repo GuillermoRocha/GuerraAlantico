@@ -1,11 +1,12 @@
 package com.example.guerraalantico.Excepciones;
 
-public class UsuarioNoExisteException extends Exception {
+import org.springframework.http.HttpStatus;
 
-  private String message;
+public class UsuarioNoExisteException extends ApiException {
 
-  public UsuarioNoExisteException(String pMessage) {
-    this.message = pMessage;
+
+  public UsuarioNoExisteException(String message) {
+    super(HttpStatus.NOT_FOUND.name(), message, HttpStatus.NOT_FOUND.value());
   }
 
 }

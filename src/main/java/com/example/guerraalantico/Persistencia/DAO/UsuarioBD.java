@@ -1,5 +1,6 @@
 package com.example.guerraalantico.Persistencia.DAO;
 
+import com.example.guerraalantico.DTO.UsuarioDTO;
 import com.example.guerraalantico.Excepciones.PersistenciaException;
 import com.example.guerraalantico.Logica.Entidades.Usuario;
 import com.example.guerraalantico.Persistencia.Consultas.Consultas;
@@ -51,9 +52,9 @@ public class UsuarioBD {
       rs.close();
       pstm.close();
       con.close();
-    }
-    catch (SQLException e) {
-      throw new PersistenciaException(e.getMessage());
+
+    } catch (SQLException e) {
+      throw new PersistenciaException();
     }
     return usuario;
   }
@@ -76,12 +77,40 @@ public class UsuarioBD {
       rs.close();
       pstm.close();
       con.close();
-    }
-    catch (SQLException e) {
-      throw new PersistenciaException(e.getMessage());
+
+    } catch (SQLException e) {
+      throw new PersistenciaException();
     }
     return userExists;
   }
+
+
+  public boolean existeUsuarioPorNombreYContraseniaBD(UsuarioDTO pUsuario) throws PersistenciaException {
+    boolean userExists = false;
+
+    try {
+      Connection con = DriverManager.getConnection
+              (url, user, password);
+
+      PreparedStatement pstm;
+      pstm = con.prepareStatement(consultas.obtenerUsuarioPorUsuarioContrasenia());
+
+      pstm.setString(1,pUsuario.getNombreUsuario());
+      pstm.setString(2,pUsuario.getContrasenia());
+      ResultSet rs = pstm.executeQuery();
+      if(rs.next()){
+        userExists=true;
+      }
+      rs.close();
+      pstm.close();
+      con.close();
+
+    } catch (SQLException e) {
+      throw new PersistenciaException();
+    }
+    return userExists;
+  }
+
 
   public void guardarUsuarioBD(String pNombreUsuario, String pPassword) throws PersistenciaException {
 
@@ -97,9 +126,9 @@ public class UsuarioBD {
 
       pstm.close();
       con.close();
-    }
-    catch (SQLException e) {
-      throw new PersistenciaException(e.getMessage());
+
+    } catch (SQLException e) {
+      throw new PersistenciaException();
     }
 
   }

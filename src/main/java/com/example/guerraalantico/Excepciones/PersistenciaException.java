@@ -1,11 +1,16 @@
 package com.example.guerraalantico.Excepciones;
 
-public class PersistenciaException extends Exception {
+import org.springframework.http.HttpStatus;
 
-  private String message;
+public class PersistenciaException extends ApiException {
 
-  public PersistenciaException(String pMessage) {
-    this.message = pMessage;
+
+  public PersistenciaException() {
+    super(HttpStatus.INTERNAL_SERVER_ERROR.name(), "Se ha producido un error interno.", HttpStatus.INTERNAL_SERVER_ERROR.value());
+  }
+
+  public PersistenciaException(String message) {
+    super(HttpStatus.INTERNAL_SERVER_ERROR.name(), message, HttpStatus.INTERNAL_SERVER_ERROR.value());
   }
 
 }

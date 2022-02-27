@@ -8,5 +8,7 @@ public interface IServicioUsuario {
 
   UsuarioDTO obtenerUsuario(UsuarioDTO pUsuario);
 
+  boolean existeUsuarioPorNombre(String pNombreUsuario);
+
 
 }
