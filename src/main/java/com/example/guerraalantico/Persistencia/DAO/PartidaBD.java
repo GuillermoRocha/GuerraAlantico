@@ -3,6 +3,7 @@ package com.example.guerraalantico.Persistencia.DAO;
 import com.example.guerraalantico.DTO.PartidaDTO;
 import com.example.guerraalantico.DTO.PartidaDetalladaDTO;
 import com.example.guerraalantico.DTO.request.GuardarNaveDTO;
+import com.example.guerraalantico.DTO.response.PartidaAIniciarDTO;
 import com.example.guerraalantico.Excepciones.PersistenciaException;
 import com.example.guerraalantico.Logica.Entidades.PartidaDetallada;
 import com.example.guerraalantico.Persistencia.Consultas.Consultas;
@@ -159,7 +160,6 @@ public class PartidaBD {
   }
 
     public boolean existePartidaBD (int pCodigoPartida){
-
       boolean existe;
 
       try {
@@ -182,4 +182,47 @@ public class PartidaBD {
 
     }
 
+  public PartidaAIniciarDTO obtenerPartidaAIniciarDB() {
+
+    PartidaAIniciarDTO partidaAIniciarDTO = new PartidaAIniciarDTO();
+    try {
+      Connection con = DriverManager.getConnection
+              (url, user, password);
+
+      PreparedStatement pstm = con.prepareStatement(consultas.obtenerPartidaAIniciar());
+      ResultSet rs = pstm.executeQuery();
+      if(rs.next()){
+        partidaAIniciarDTO.setIdPartida(rs.getInt(""));
+        partidaAIniciarDTO.setUsuarioEquipoUno(rs.getString(""));
+        partidaAIniciarDTO.setUsuarioEquipoDos(rs.getString(""));
+      }
+      rs.close();
+      pstm.close();
+      con.close();
+    }
+    catch (SQLException e) {
+      throw new PersistenciaException();
+    }
+    return partidaAIniciarDTO;
+  }
+
+  public void habilitarDeshabilitarPartidaBD(int pIdPartida, int pActivar) {
+
+    try {
+      Connection con = DriverManager.getConnection
+              (url, user, password);
+
+      PreparedStatement pstm = con.prepareStatement(consultas.activarPartida());
+      pstm.setInt(1, pActivar);
+      pstm.setInt(2, pIdPartida);
+      pstm.executeUpdate();
+
+      pstm.close();
+      con.close();
+    }
+    catch (SQLException e) {
+      throw new PersistenciaException();
+    }
+
+  }
 }
