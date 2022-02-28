@@ -96,10 +96,10 @@ public class ServicioPartida implements IServicioPartida {
       for (EquipoDTO vEquipo: listaEquipos) {
 
           if(vEquipo.getBando() == 1){
-              partidaAIniciarDTO.setUsuarioEquipoUno(vEquipo.getIdEquipo());
+              partidaAIniciarDTO.setUsuarioEquipoUno(vEquipo.getIdUsuario());
           }
           else if (vEquipo.getBando() == 2){
-              partidaAIniciarDTO.setUsuarioEquipoDos(vEquipo.getIdEquipo());
+              partidaAIniciarDTO.setUsuarioEquipoDos(vEquipo.getIdUsuario());
           }
       }
 
