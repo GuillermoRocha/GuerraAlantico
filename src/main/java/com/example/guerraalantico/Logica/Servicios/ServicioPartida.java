@@ -3,6 +3,7 @@ package com.example.guerraalantico.Logica.Servicios;
 
 import com.example.guerraalantico.DTO.*;
 import com.example.guerraalantico.DTO.request.GuardarNaveDTO;
+import com.example.guerraalantico.DTO.response.PartidaAIniciarDTO;
 import com.example.guerraalantico.Excepciones.PartidaNoExisteException;
 import com.example.guerraalantico.Excepciones.UsuarioNoExisteException;
 import com.example.guerraalantico.Persistencia.DAO.EquipoBD;
@@ -25,7 +26,7 @@ public class ServicioPartida implements IServicioPartida {
   private IServicioUsuario servicioUsuario;
 
 
-  public List<PartidaDTO> obtenerPartidasPorUsuario(String pNombreUsuario){
+  public List<PartidaDTO> obtenerPartidasPorUsuarioARetomar(String pNombreUsuario){
       if(servicioUsuario.existeUsuarioPorNombre(pNombreUsuario))
           return this.partidaBD.obtenerPartidasBD(pNombreUsuario);
       else
@@ -72,9 +73,31 @@ public class ServicioPartida implements IServicioPartida {
              pAltaPartida.getIdJugadorRojo());
   }
 
+    public PartidaAIniciarDTO obtenerPartidaAIniciar(){
+      return this.partidaBD.obtenerPartidaAIniciarDB();
+    }
 
-  private boolean existePartida(int pCodigoPartida){
+
+    private boolean existePartida(int pCodigoPartida){
      return this.partidaBD.existePartidaBD(pCodigoPartida);
   }
+
+    public void habilitarPartida(int pIdPartida){
+        if(!existePartida(pIdPartida)) {
+            throw new PartidaNoExisteException(String.format("La partida %s no existe en el sistema", pIdPartida));
+        } else {
+            this.partidaBD.habilitarDeshabilitarPartidaBD(pIdPartida, 1);
+        }
+
+    }
+
+    public void deshabilitarPartida(int pIdPartida){
+        if(!existePartida(pIdPartida)) {
+            throw new PartidaNoExisteException(String.format("La partida %s no existe en el sistema", pIdPartida));
+        } else {
+            this.partidaBD.habilitarDeshabilitarPartidaBD(pIdPartida, 0);
+        }
+
+    }
 
 }
