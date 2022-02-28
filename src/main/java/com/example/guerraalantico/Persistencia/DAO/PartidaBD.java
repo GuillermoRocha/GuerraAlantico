@@ -192,9 +192,7 @@ public class PartidaBD {
       PreparedStatement pstm = con.prepareStatement(consultas.obtenerPartidaAIniciar());
       ResultSet rs = pstm.executeQuery();
       if(rs.next()){
-        partidaAIniciarDTO.setIdPartida(rs.getInt(""));
-        partidaAIniciarDTO.setUsuarioEquipoUno(rs.getString(""));
-        partidaAIniciarDTO.setUsuarioEquipoDos(rs.getString(""));
+        partidaAIniciarDTO.setIdPartida(rs.getInt("ParIdPartida"));
       }
       rs.close();
       pstm.close();
