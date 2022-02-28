@@ -182,9 +182,9 @@ public class PartidaBD {
 
     }
 
-  public PartidaAIniciarDTO obtenerPartidaAIniciarDB() {
+  public int obtenerPartidaAIniciarDB() {
 
-    PartidaAIniciarDTO partidaAIniciarDTO = new PartidaAIniciarDTO();
+    int partidaAIniciarDTO = 0;
     try {
       Connection con = DriverManager.getConnection
               (url, user, password);
@@ -192,7 +192,7 @@ public class PartidaBD {
       PreparedStatement pstm = con.prepareStatement(consultas.obtenerPartidaAIniciar());
       ResultSet rs = pstm.executeQuery();
       if(rs.next()){
-        partidaAIniciarDTO.setIdPartida(rs.getInt("ParIdPartida"));
+        partidaAIniciarDTO = (rs.getInt("ParIdPartida"));
       }
       rs.close();
       pstm.close();

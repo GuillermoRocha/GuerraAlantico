@@ -69,14 +69,42 @@ public class ServicioPartida implements IServicioPartida {
 
 
   public int altaPartida(AltaPartidaDTO pAltaPartida){
-    return this.partidaBD.altaPartidaBD(pAltaPartida.getIdJugadorAzul(),
-             pAltaPartida.getIdJugadorRojo());
+
+      int vRetorno = 0;
+      int vRandom = (Math.random() <= 0.5) ? 1 : 2;
+
+      if(vRandom == 1){
+
+          vRetorno = this.partidaBD.altaPartidaBD(pAltaPartida.getIdJugadorAzul(),
+                  pAltaPartida.getIdJugadorRojo());
+      }
+      else{
+
+          vRetorno = this.partidaBD.altaPartidaBD(pAltaPartida.getIdJugadorRojo(),
+                   pAltaPartida.getIdJugadorAzul());
+      }
+
+    return vRetorno;
   }
 
-    public PartidaAIniciarDTO obtenerPartidaAIniciar(){
-      return this.partidaBD.obtenerPartidaAIniciarDB();
-    }
+  public PartidaAIniciarDTO obtenerPartidaAIniciar(){
+      PartidaAIniciarDTO partidaAIniciarDTO = new PartidaAIniciarDTO();
+      partidaAIniciarDTO.setIdPartida(this.partidaBD.obtenerPartidaAIniciarDB());
 
+      List<EquipoDTO> listaEquipos = this.equipoBD.obtenerEquiposPorPartidasBD(partidaAIniciarDTO.getIdPartida());
+
+      for (EquipoDTO vEquipo: listaEquipos) {
+
+          if(vEquipo.getBando() == 1){
+              partidaAIniciarDTO.setUsuarioEquipoUno(vEquipo.getIdEquipo());
+          }
+          else if (vEquipo.getBando() == 2){
+              partidaAIniciarDTO.setUsuarioEquipoDos(vEquipo.getIdEquipo());
+          }
+      }
+
+      return partidaAIniciarDTO;
+  }
 
     private boolean existePartida(int pCodigoPartida){
      return this.partidaBD.existePartidaBD(pCodigoPartida);

@@ -12,6 +12,7 @@ import lombok.Setter;
 public class PartidaAIniciarDTO {
 
     private int idPartida;
-    private String usuarioEquipoUno;
-    private String usuarioEquipoDos;
+
+    private int usuarioEquipoUno;
+    private int usuarioEquipoDos;
 }
