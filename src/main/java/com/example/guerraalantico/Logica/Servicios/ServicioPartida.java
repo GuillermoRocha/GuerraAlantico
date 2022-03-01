@@ -70,7 +70,7 @@ public class ServicioPartida implements IServicioPartida {
 
   public int altaPartida(AltaPartidaDTO pAltaPartida){
 
-      int vRetorno = 0;
+      int vRetorno;
       int vRandom = (Math.random() <= 0.5) ? 1 : 2;
 
       if(vRandom == 1){

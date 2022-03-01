@@ -57,8 +57,8 @@ public class PartidaController {
 
   @Operation(summary = "Dar de alta una partida")
   @PostMapping("/partida/alta")
-  public void altaPartida(@RequestBody AltaPartidaDTO pAltaPartida){
-    servicioPartida.altaPartida(pAltaPartida);
+  public int altaPartida(@RequestBody AltaPartidaDTO pAltaPartida){
+    return servicioPartida.altaPartida(pAltaPartida);
   }
 
 
