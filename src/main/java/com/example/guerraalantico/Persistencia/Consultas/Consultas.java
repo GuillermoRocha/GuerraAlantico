@@ -18,7 +18,7 @@ public class Consultas {
   }
 
   public String guardarPartida(){
-    return "CALL GuerraAtlantico.GuardarDatosEquipo(?, ?, ?, ?, ?, ?);";
+    return "CALL GuerraAtlantico.GuardarDatosEquipo(?, ?, ?, ?, ?, ?, ?);";
   }
 
   public String obtenerUsuarioPorUsuario() {

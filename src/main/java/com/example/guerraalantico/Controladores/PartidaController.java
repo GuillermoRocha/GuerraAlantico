@@ -42,7 +42,6 @@ public class PartidaController {
   }
 
 
-
   @Operation(summary = "Obtener las partidas de un usuario")
   @GetMapping("/partida/{pUsername}")
   public List<PartidaDTO> obtenerPartidasPorUsuario(@PathVariable String pUsername){

@@ -88,19 +88,20 @@ public class PartidaBD {
     return vCodigoPartida;
   }
 
-  public void guardarPartidaDB(GuardarNaveDTO pGuardarNavea) throws PersistenciaException {
+  public void guardarPartidaDB(GuardarNaveDTO pGuardarNave) throws PersistenciaException {
 
     try {
       Connection con = DriverManager.getConnection
           (url, user, password);
 
       CallableStatement cstmt = con.prepareCall(consultas.guardarPartida());
-      cstmt.setInt(1, pGuardarNavea.getIdEquipo());
-      cstmt.setInt(2, pGuardarNavea.getIdNave());
-      cstmt.setInt(3, pGuardarNavea.getCoordenadasX());
-      cstmt.setInt(4, pGuardarNavea.getCoordenadaY());
-      cstmt.setInt(5, pGuardarNavea.getResistencia());
-      cstmt.setInt(6, pGuardarNavea.getProfundidadActual());
+      cstmt.setInt(1, pGuardarNave.getIdUsuario());
+      cstmt.setInt(2, pGuardarNave.getIdPartida());
+      cstmt.setInt(3, pGuardarNave.getIdNave());
+      cstmt.setInt(4, pGuardarNave.getCoordenadasX());
+      cstmt.setInt(5, pGuardarNave.getCoordenadaY());
+      cstmt.setInt(6, pGuardarNave.getResistencia());
+      cstmt.setInt(7, pGuardarNave.getProfundidadActual());
 
       cstmt.executeUpdate();
 
