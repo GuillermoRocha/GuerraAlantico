@@ -2,7 +2,6 @@ package com.example.guerraalantico.Logica.Servicios;
 
 import com.example.guerraalantico.DTO.NaveDTO;
 import com.example.guerraalantico.DTO.NaveGuerraDTO;
-import com.example.guerraalantico.DTO.SubmarinoDTO;
 
 public interface IServicioConfiguracion {
 
@@ -10,7 +9,6 @@ public interface IServicioConfiguracion {
 
   NaveGuerraDTO obtenerDatosDestructor(int pCodigoNave);
 
-  SubmarinoDTO obtenerDatosSubmarino(int pCodigoNave);
-
+  NaveGuerraDTO obtenerDatosSubmarino(int pCodigoNave);
 
 }
