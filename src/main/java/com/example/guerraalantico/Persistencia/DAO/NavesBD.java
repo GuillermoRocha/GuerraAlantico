@@ -3,7 +3,6 @@ package com.example.guerraalantico.Persistencia.DAO;
 import com.example.guerraalantico.DTO.AlcanceVistaDTO;
 import com.example.guerraalantico.DTO.ArmaDTO;
 import com.example.guerraalantico.DTO.NaveDTO;
-import com.example.guerraalantico.DTO.VelocidadDTO;
 import com.example.guerraalantico.Excepciones.PersistenciaException;
 import com.example.guerraalantico.Persistencia.Consultas.Consultas;
 import java.sql.Connection;
@@ -50,6 +49,7 @@ public class NavesBD {
         naveDTO.setIdTipoNave(rs.getInt("NavIdNave"));
         naveDTO.setTipoNave(rs.getString("NavTipoNave"));
         naveDTO.setResistencia(rs.getInt("NavResistencia"));
+        naveDTO.setVelocidad(rs.getInt("NavVelocidad"));
       }
       rs.close();
       pstm.close();
@@ -62,35 +62,6 @@ public class NavesBD {
 
   }
 
-
-  public List<VelocidadDTO> obtenerVelocidadesBD(int pCodigoNave) throws PersistenciaException {
-
-    List<VelocidadDTO> listaVelocidades = new ArrayList<>();
-
-    try {
-      Connection con = DriverManager.getConnection
-          (url, user, password);
-
-      PreparedStatement pstm;
-      pstm = con.prepareStatement(consultas.obtenerVelocidadPorNave());
-
-      pstm.setInt(1,pCodigoNave);
-      ResultSet rs = pstm.executeQuery();
-      while(rs.next()){
-        VelocidadDTO velocidadDTO = new VelocidadDTO(rs.getInt("VelProfundidadNave"),
-            rs.getInt("VelVelocidad"));
-        listaVelocidades.add(velocidadDTO);
-      }
-      rs.close();
-      pstm.close();
-      con.close();
-
-    } catch (SQLException e) {
-      throw new PersistenciaException();
-    }
-    return listaVelocidades;
-
-  }
 
   public List<AlcanceVistaDTO> obtenerAlcanceVistaBD(int pCodigoNave) throws PersistenciaException {
 

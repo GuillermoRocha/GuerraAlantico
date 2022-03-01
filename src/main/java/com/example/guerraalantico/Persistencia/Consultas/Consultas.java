@@ -83,12 +83,6 @@ public class Consultas {
   }
 
 
-  public String obtenerVelocidadPorNave() {
-    return	"SELECT * FROM GuerraAtlantico.Velocidades " +
-        "WHERE NavIdNave = ?;";
-  }
-
-
   public String altaUsuario() {
     return	"INSERT INTO GuerraAtlantico.Usuarios (UsuNombreUsuario, UsuContrasenia) VALUES(?, ?)";
   }

@@ -17,5 +17,6 @@ public class NaveDTO {
 	private int coordenadaY;
 	private int resistencia;
 	private int profundidadActual;
+	private int velocidad;
 
 }
