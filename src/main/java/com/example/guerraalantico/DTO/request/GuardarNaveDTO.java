@@ -9,7 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class GuardarNaveDTO {
 
-    private int idUsuario;
+    private int idBando;
     private int idPartida;
     private int idNave;
     private int coordenadasX;

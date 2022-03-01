@@ -95,7 +95,7 @@ public class PartidaBD {
           (url, user, password);
 
       CallableStatement cstmt = con.prepareCall(consultas.guardarPartida());
-      cstmt.setInt(1, pGuardarNave.getIdUsuario());
+      cstmt.setInt(1, pGuardarNave.getIdBando());
       cstmt.setInt(2, pGuardarNave.getIdPartida());
       cstmt.setInt(3, pGuardarNave.getIdNave());
       cstmt.setInt(4, pGuardarNave.getCoordenadasX());
