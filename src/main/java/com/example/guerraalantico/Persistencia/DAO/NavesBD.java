@@ -50,7 +50,6 @@ public class NavesBD {
         naveDTO.setTipoNave(rs.getString("NavTipoNave"));
         naveDTO.setResistencia(rs.getInt("NavResistencia"));
         naveDTO.setVelocidad(rs.getInt("NavVelocidad"));
-        naveDTO.setRotacion(rs.getInt("NavRotacion"));
       }
       rs.close();
       pstm.close();
