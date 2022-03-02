@@ -46,7 +46,7 @@ public class PartidaBD {
       ResultSet rs = pstm.executeQuery();
       while(rs.next()){
         PartidaDTO partidaDTO = new PartidaDTO(rs.getInt("ParIdPartida"), rs.getDate("ParFechaAlta"),
-                rs.getDate("ParFechaGuardado"), rs.getBoolean("ParFinalizada"), rs.getString("UsuNombreUsuario"));
+                rs.getDate("ParFechaGuardado"), rs.getBoolean("ParFinalizada"));
         listaPartidas.add(partidaDTO);
       }
       rs.close();
