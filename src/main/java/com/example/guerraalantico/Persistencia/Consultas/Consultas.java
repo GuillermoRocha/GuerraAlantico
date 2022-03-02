@@ -12,13 +12,8 @@ public class Consultas {
 
   }
 
-  public String obtenerPartidaAIniciar(){
-    return "SELECT * FROM GuerraAtlantico.Partidas WHERE ParFinalizada = 0 " +
-            " AND ParDisponibleParaJugar = 1 LIMIT 1;";
-  }
-
   public String guardarPartida(){
-    return "CALL GuerraAtlantico.GuardarDatosEquipo(?, ?, ?, ?, ?, ?, ?);";
+    return "CALL GuerraAtlantico.GuardarDatosEquipo(?, ?, ?, ?, ?, ?, ?, ?);";
   }
 
   public String obtenerUsuarioPorUsuario() {
@@ -45,11 +40,6 @@ public class Consultas {
     "JOIN GuerraAtlantico.Usuarios U ON U.UsuIdUsuario = E.UsuIdUsuario "+
     "LEFT JOIN GuerraAtlantico.Usuarios U2 ON U2.UsuIdUsuario = P.UsuIdUsuarioGanador "+
     "WHERE U.UsuNombreUsuario = ?;";
-  }
-
-  public  String activarPartida() {
-    return "UPDATE GuerraAtlantico.Partidas " +
-            "SET ParDisponibleParaJugar = ? WHERE ParIdPartida = ? ;" ;
   }
 
   public String obtenerPartidaporId() {
@@ -99,7 +89,7 @@ public class Consultas {
   }
 
   public String finalizarPartida(){
-    return "UPDATE GuerraAtlantico.Partidas SET ParFechaGuardado = NOW(), ParFinalizada = 1, UsuIdUsuarioGanador = ? " +
+    return "UPDATE GuerraAtlantico.Partidas SET ParFechaGuardado = NOW(), ParFinalizada = 1 " +
             "WHERE ParIdPartida = ?;";
   }
 

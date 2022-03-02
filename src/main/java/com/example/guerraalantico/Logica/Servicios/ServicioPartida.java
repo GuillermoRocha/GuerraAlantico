@@ -3,7 +3,6 @@ package com.example.guerraalantico.Logica.Servicios;
 
 import com.example.guerraalantico.DTO.*;
 import com.example.guerraalantico.DTO.request.GuardarNaveDTO;
-import com.example.guerraalantico.DTO.response.PartidaAIniciarDTO;
 import com.example.guerraalantico.Excepciones.PartidaNoExisteException;
 import com.example.guerraalantico.Excepciones.UsuarioNoExisteException;
 import com.example.guerraalantico.Persistencia.DAO.EquipoBD;
@@ -57,60 +56,21 @@ public class ServicioPartida implements IServicioPartida {
         this.partidaBD.guardarPartidaDB(pGuardarNave);
   }
 
-
   @Override
-  public void finalizarPartida(PartidaFinalzadaDTO pPartidaFinalizadaDTO)  {
-      if(!existePartida(pPartidaFinalizadaDTO.getIdPartida())) {
-          throw new PartidaNoExisteException(String.format("La partida %s no existe en el sistema", pPartidaFinalizadaDTO.getIdPartida()));
+  public void finalizarPartida(int pIdPartida)  {
+      if(!existePartida(pIdPartida)) {
+          throw new PartidaNoExisteException(String.format("La partida %s no existe en el sistema", pIdPartida));
       } else {
-          this.partidaBD.finalizarPartidaDB(pPartidaFinalizadaDTO.getIdPartida(), pPartidaFinalizadaDTO.getIdUsuarioGanador());
+          this.partidaBD.finalizarPartidaDB(pIdPartida);
       }
   }
-
 
   public int altaPartida(AltaPartidaDTO pAltaPartida){
     return this.partidaBD.altaPartidaBD(pAltaPartida.getIdJugadorAzul(), pAltaPartida.getIdJugadorRojo());
   }
 
-  public PartidaAIniciarDTO obtenerPartidaAIniciar(){
-      PartidaAIniciarDTO partidaAIniciarDTO = new PartidaAIniciarDTO();
-      partidaAIniciarDTO.setIdPartida(this.partidaBD.obtenerPartidaAIniciarDB());
-
-      List<EquipoDTO> listaEquipos = this.equipoBD.obtenerEquiposPorPartidasBD(partidaAIniciarDTO.getIdPartida());
-
-      for (EquipoDTO vEquipo: listaEquipos) {
-
-          if(vEquipo.getBando() == 1){
-              partidaAIniciarDTO.setUsuarioEquipoUno(vEquipo.getIdUsuario());
-          }
-          else if (vEquipo.getBando() == 2){
-              partidaAIniciarDTO.setUsuarioEquipoDos(vEquipo.getIdUsuario());
-          }
-      }
-
-      return partidaAIniciarDTO;
-  }
-
     private boolean existePartida(int pCodigoPartida){
      return this.partidaBD.existePartidaBD(pCodigoPartida);
   }
-
-    public void habilitarPartida(int pIdPartida){
-        if(!existePartida(pIdPartida)) {
-            throw new PartidaNoExisteException(String.format("La partida %s no existe en el sistema", pIdPartida));
-        } else {
-            this.partidaBD.habilitarDeshabilitarPartidaBD(pIdPartida, 1);
-        }
-
-    }
-
-    public void deshabilitarPartida(int pIdPartida){
-        if(!existePartida(pIdPartida)) {
-            throw new PartidaNoExisteException(String.format("La partida %s no existe en el sistema", pIdPartida));
-        } else {
-            this.partidaBD.habilitarDeshabilitarPartidaBD(pIdPartida, 0);
-        }
-
-    }
 
 }

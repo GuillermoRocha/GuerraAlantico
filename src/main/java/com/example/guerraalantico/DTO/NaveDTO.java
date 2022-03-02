@@ -13,10 +13,11 @@ public class NaveDTO {
 
 	private int idTipoNave;
 	private String tipoNave;
-	private int coordenadasX;
+	private int coordenadaX;
 	private int coordenadaY;
 	private int resistencia;
 	private int profundidadActual;
 	private int velocidad;
+	private int rotacion;
 
 }

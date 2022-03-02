@@ -1,11 +1,8 @@
 package com.example.guerraalantico.Persistencia.DAO;
 
 import com.example.guerraalantico.DTO.PartidaDTO;
-import com.example.guerraalantico.DTO.PartidaDetalladaDTO;
 import com.example.guerraalantico.DTO.request.GuardarNaveDTO;
-import com.example.guerraalantico.DTO.response.PartidaAIniciarDTO;
 import com.example.guerraalantico.Excepciones.PersistenciaException;
-import com.example.guerraalantico.Logica.Entidades.PartidaDetallada;
 import com.example.guerraalantico.Persistencia.Consultas.Consultas;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -13,7 +10,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,10 +94,11 @@ public class PartidaBD {
       cstmt.setInt(1, pGuardarNave.getIdBando());
       cstmt.setInt(2, pGuardarNave.getIdPartida());
       cstmt.setInt(3, pGuardarNave.getIdNave());
-      cstmt.setInt(4, pGuardarNave.getCoordenadasX());
+      cstmt.setInt(4, pGuardarNave.getCoordenadaX());
       cstmt.setInt(5, pGuardarNave.getCoordenadaY());
       cstmt.setInt(6, pGuardarNave.getResistencia());
       cstmt.setInt(7, pGuardarNave.getProfundidadActual());
+      cstmt.setInt(8, pGuardarNave.getRotacion());
 
       cstmt.executeUpdate();
 
@@ -141,14 +138,13 @@ public class PartidaBD {
   }
 
 
-  public void finalizarPartidaDB(int pidPartida, int pIdUsuarioGanador) throws PersistenciaException {
+  public void finalizarPartidaDB(int pidPartida) throws PersistenciaException {
 
     try {
       Connection con = DriverManager.getConnection
               (url, user, password);
       PreparedStatement pstm = con.prepareStatement(consultas.finalizarPartida());
       pstm.setInt(1, pidPartida);
-      pstm.setInt(2, pIdUsuarioGanador);
 
       pstm.executeUpdate();
 
@@ -183,45 +179,4 @@ public class PartidaBD {
 
     }
 
-  public int obtenerPartidaAIniciarDB() {
-
-    int partidaAIniciarDTO = 0;
-    try {
-      Connection con = DriverManager.getConnection
-              (url, user, password);
-
-      PreparedStatement pstm = con.prepareStatement(consultas.obtenerPartidaAIniciar());
-      ResultSet rs = pstm.executeQuery();
-      if(rs.next()){
-        partidaAIniciarDTO = (rs.getInt("ParIdPartida"));
-      }
-      rs.close();
-      pstm.close();
-      con.close();
-    }
-    catch (SQLException e) {
-      throw new PersistenciaException();
-    }
-    return partidaAIniciarDTO;
-  }
-
-  public void habilitarDeshabilitarPartidaBD(int pIdPartida, int pActivar) {
-
-    try {
-      Connection con = DriverManager.getConnection
-              (url, user, password);
-
-      PreparedStatement pstm = con.prepareStatement(consultas.activarPartida());
-      pstm.setInt(1, pActivar);
-      pstm.setInt(2, pIdPartida);
-      pstm.executeUpdate();
-
-      pstm.close();
-      con.close();
-    }
-    catch (SQLException e) {
-      throw new PersistenciaException();
-    }
-
-  }
 }
