@@ -69,22 +69,7 @@ public class ServicioPartida implements IServicioPartida {
 
 
   public int altaPartida(AltaPartidaDTO pAltaPartida){
-
-      int vRetorno;
-      int vRandom = (Math.random() <= 0.5) ? 1 : 2;
-
-      if(vRandom == 1){
-
-          vRetorno = this.partidaBD.altaPartidaBD(pAltaPartida.getIdJugadorAzul(),
-                  pAltaPartida.getIdJugadorRojo());
-      }
-      else{
-
-          vRetorno = this.partidaBD.altaPartidaBD(pAltaPartida.getIdJugadorRojo(),
-                   pAltaPartida.getIdJugadorAzul());
-      }
-
-    return vRetorno;
+    return this.partidaBD.altaPartidaBD(pAltaPartida.getIdJugadorAzul(), pAltaPartida.getIdJugadorRojo());
   }
 
   public PartidaAIniciarDTO obtenerPartidaAIniciar(){
