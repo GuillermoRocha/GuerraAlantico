@@ -37,7 +37,7 @@ public class Consultas {
   public String obtenerPartidasPorUsario() {
    return "SELECT P.* FROM GuerraAtlantico.Equipos E "+
           "JOIN GuerraAtlantico.Partidas P ON P.ParIdPartida = E.ParIdPartida "+
-          "JOIN GuerraAtlantico.Usuarios U ON U.UsuIdUsuario != E.UsuIdUsuario "+
+          "JOIN GuerraAtlantico.Usuarios U ON U.UsuIdUsuario = E.UsuIdUsuario "+
           "WHERE U.UsuNombreUsuario = ? AND P.ParFinalizada = 0 AND P.ParFechaGuardado IS NOT NULL;";
 
   }
