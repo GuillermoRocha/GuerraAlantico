@@ -39,7 +39,7 @@ public class Consultas {
     "JOIN GuerraAtlantico.Partidas P ON P.ParIdPartida = E.ParIdPartida "+
     "JOIN GuerraAtlantico.Usuarios U ON U.UsuIdUsuario = E.UsuIdUsuario "+
     "LEFT JOIN GuerraAtlantico.Usuarios U2 ON U2.UsuIdUsuario = P.UsuIdUsuarioGanador "+
-    "WHERE U.UsuNombreUsuario = ?;";
+    "WHERE U.UsuNombreUsuario = ? AND P.ParFinalizada = 0;";
   }
 
   public String obtenerPartidaporId() {
