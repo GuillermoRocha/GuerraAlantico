@@ -13,8 +13,9 @@ public class Nave {
 
 	private int idNave;
 	private int resistencia;
-	private int coordenadasX;
+	private int coordenadaX;
 	private int coordenadaY;
 	private int velocidad;
+	private int rotacion;
 
 }

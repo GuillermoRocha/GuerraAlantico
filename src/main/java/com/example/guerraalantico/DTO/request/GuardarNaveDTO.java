@@ -12,8 +12,9 @@ public class GuardarNaveDTO {
     private int idBando;
     private int idPartida;
     private int idNave;
-    private int coordenadasX;
+    private int coordenadaX;
     private int coordenadaY;
     private int resistencia;
     private int profundidadActual;
+    private int rotacion;
 }

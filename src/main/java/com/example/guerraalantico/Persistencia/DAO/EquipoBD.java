@@ -78,7 +78,8 @@ public class EquipoBD {
       while(rs.next()){
         NaveDTO naveDTO = new NaveDTO(rs.getInt("NavIdNave"), rs.getString("NavTipoNave"),
                 rs.getInt("RENCoordenadasX"), rs.getInt("RenCoordenadasY"),
-                rs.getInt("RENResistenciaActual"), rs.getInt("RenProfundidadActual"), rs.getInt("NavVelocidad"));
+                rs.getInt("RENResistenciaActual"), rs.getInt("RenProfundidadActual"),
+                rs.getInt("NavVelocidad"), rs.getInt("RENRotacion"));
         listaNaves.add(naveDTO);
       }
       rs.close();
