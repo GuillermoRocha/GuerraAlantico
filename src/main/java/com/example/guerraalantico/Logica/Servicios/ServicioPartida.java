@@ -69,9 +69,7 @@ public class ServicioPartida implements IServicioPartida {
 
 
   public int altaPartida(AltaPartidaDTO pAltaPartida){
-
-    return this.partidaBD.altaPartidaBD(pAltaPartida.getIdJugadorAzul(),
-            pAltaPartida.getIdJugadorRojo());
+    return this.partidaBD.altaPartidaBD(pAltaPartida.getIdJugadorAzul(), pAltaPartida.getIdJugadorRojo());
   }
 
   public PartidaAIniciarDTO obtenerPartidaAIniciar(){

@@ -42,7 +42,6 @@ public class PartidaController {
   }
 
 
-
   @Operation(summary = "Obtener las partidas de un usuario")
   @GetMapping("/partida/{pUsername}")
   public List<PartidaDTO> obtenerPartidasPorUsuario(@PathVariable String pUsername){
@@ -57,8 +56,8 @@ public class PartidaController {
 
   @Operation(summary = "Dar de alta una partida")
   @PostMapping("/partida/alta")
-  public void altaPartida(@RequestBody AltaPartidaDTO pAltaPartida){
-    servicioPartida.altaPartida(pAltaPartida);
+  public int altaPartida(@RequestBody AltaPartidaDTO pAltaPartida){
+    return servicioPartida.altaPartida(pAltaPartida);
   }
 
 
