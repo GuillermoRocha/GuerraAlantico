@@ -16,5 +16,5 @@ public class GuardarNaveDTO {
     private int coordenadaY;
     private int resistencia;
     private int profundidadActual;
-    private int rotacion;
+    private float rotacion;
 }

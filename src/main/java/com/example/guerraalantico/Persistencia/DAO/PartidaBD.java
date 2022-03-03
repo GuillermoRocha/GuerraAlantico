@@ -98,7 +98,7 @@ public class PartidaBD {
       cstmt.setInt(5, pGuardarNave.getCoordenadaY());
       cstmt.setInt(6, pGuardarNave.getResistencia());
       cstmt.setInt(7, pGuardarNave.getProfundidadActual());
-      cstmt.setInt(8, pGuardarNave.getRotacion());
+      cstmt.setFloat(8, pGuardarNave.getRotacion());
 
       cstmt.executeUpdate();
 

@@ -16,6 +16,6 @@ public class Nave {
 	private int coordenadaX;
 	private int coordenadaY;
 	private int velocidad;
-	private int rotacion;
+	private float rotacion;
 
 }

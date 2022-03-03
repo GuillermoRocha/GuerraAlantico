@@ -18,6 +18,6 @@ public class NaveDTO {
 	private int resistencia;
 	private int profundidadActual;
 	private int velocidad;
-	private int rotacion;
+	private float rotacion;
 
 }
