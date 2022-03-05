@@ -1,7 +1,6 @@
 package com.example.guerraalantico.Controladores;
 
 import com.example.guerraalantico.DTO.NaveDTO;
-import com.example.guerraalantico.DTO.NaveGuerraDTO;
 import com.example.guerraalantico.Logica.Servicios.IServicioConfiguracion;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +18,25 @@ public class ConfiguracionController {
   @Operation(summary = "Obtener la configuración del carguero")
   @GetMapping("/carguero")
   public NaveDTO obtenerDatosCarguero(){
+    return servicioConfiguracion.obtenerDatosNavePorTipo(1);
+  }
+
+  @Operation(summary = "Obtener la configuración del destructor")
+  @GetMapping("/destructor")
+  public NaveDTO obtenerDatosDestructor(){
+    return servicioConfiguracion.obtenerDatosNavePorTipo(2);
+  }
+
+  @Operation(summary = "Obtener la configuración del submarino")
+  @GetMapping("/submarino")
+  public NaveDTO obtenerDatosSubmarino(){
+    return servicioConfiguracion.obtenerDatosNavePorTipo(3);
+  }
+
+  /*
+  @Operation(summary = "Obtener la configuración del carguero")
+  @GetMapping("/carguero")
+  public NaveDTO obtenerDatosCarguero(){
     return servicioConfiguracion.obtenerDatosCarguero(1);
   }
 
@@ -33,4 +51,6 @@ public class ConfiguracionController {
   public NaveGuerraDTO obtenerDatosSubmarino(){
     return servicioConfiguracion.obtenerDatosSubmarino(3);
   }
+
+   */
 }

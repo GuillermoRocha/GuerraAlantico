@@ -53,18 +53,9 @@ public class Consultas {
 
   }
 
-  public String obtenerVistasPorNave() {
-
-    return 	"SELECT * FROM GuerraAtlantico.RelNavesProfundidades " +
-        "WHERE NavIdNave = ?;";
-  }
-
-
   public String altaUsuario() {
     return	"INSERT INTO GuerraAtlantico.Usuarios (UsuNombreUsuario, UsuContrasenia) VALUES(?, ?)";
   }
-
-
 
   public String altaPartida() {
     return 	"CALL GuerraAtlantico.AltaPartida(?, ?, ?)";

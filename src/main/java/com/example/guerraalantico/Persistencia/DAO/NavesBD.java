@@ -32,7 +32,7 @@ public class NavesBD {
   private String password;
 
 
-  public NaveDTO obtenerNaveBD(int pCodigoNave) throws PersistenciaException {
+  public NaveDTO obtenerNaveBD(int pidTipoNave) throws PersistenciaException {
 
     NaveDTO vNaveDTO = new NaveDTO();
     try {
@@ -42,13 +42,13 @@ public class NavesBD {
       PreparedStatement pstm;
       pstm = con.prepareStatement(consultas.obtenerNavesPorCodigo());
 
-      pstm.setInt(1,pCodigoNave);
+      pstm.setInt(1,pidTipoNave);
       ResultSet rs = pstm.executeQuery();
       if(rs.next()){
         vNaveDTO.setIdTipoNave(rs.getInt("NavIdNave"));
         vNaveDTO.setTipoNave(rs.getString("NavTipoNave"));
-        vNaveDTO.setResistencia(rs.getInt("NavResistencia"));
         vNaveDTO.setVelocidad(rs.getInt("NavVelocidad"));
+        vNaveDTO.setResistencia(rs.getInt("NavResistencia"));
       }
       rs.close();
       pstm.close();
@@ -58,35 +58,6 @@ public class NavesBD {
       throw new PersistenciaException();
     }
     return vNaveDTO;
-
-  }
-
-
-  public List<AlcanceVistaDTO> obtenerAlcanceVistaBD(int pCodigoNave) throws PersistenciaException {
-
-    List<AlcanceVistaDTO> vListaAlcanceVistas = new ArrayList<>();
-    try {
-      Connection con = DriverManager.getConnection
-          (url, user, password);
-
-      PreparedStatement pstm;
-      pstm = con.prepareStatement(consultas.obtenerVistasPorNave());
-
-      pstm.setInt(1,pCodigoNave);
-      ResultSet rs = pstm.executeQuery();
-      while(rs.next()){
-        AlcanceVistaDTO vAlcanceVistaDTO = new AlcanceVistaDTO(rs.getInt("NavProfundidadNave"),
-            rs.getInt("NavProfundidadVista"), rs.getInt("RNPAlcanceVista"));
-        vListaAlcanceVistas.add(vAlcanceVistaDTO);
-      }
-      rs.close();
-      pstm.close();
-      con.close();
-
-    } catch (SQLException e) {
-      throw new PersistenciaException();
-    }
-    return vListaAlcanceVistas;
 
   }
 
