@@ -25,21 +25,19 @@ public class ServicioConfiguracion implements IServicioConfiguracion{
   @Override
   public NaveGuerraDTO obtenerDatosSubmarino(int pCodigoNave) {
 
-      NaveDTO naveDTO = navesBD.obtenerNaveBD(pCodigoNave);
-      NaveGuerraDTO naveGuerraDTO = objectMapper.convertValue(naveDTO, NaveGuerraDTO.class);
-      naveGuerraDTO.setArmas(navesBD.obtenerArmasBD(pCodigoNave));
-      naveGuerraDTO.setVistas(navesBD.obtenerAlcanceVistaBD(pCodigoNave));
-      return naveGuerraDTO;
+      NaveDTO vNaveDTO = navesBD.obtenerNaveBD(pCodigoNave);
+      NaveGuerraDTO vNaveGuerraDTO = objectMapper.convertValue(vNaveDTO, NaveGuerraDTO.class);
+      vNaveGuerraDTO.setVistas(navesBD.obtenerAlcanceVistaBD(pCodigoNave));
+      return vNaveGuerraDTO;
   }
 
   @Override
   public NaveGuerraDTO obtenerDatosDestructor(int pCodigoNave) {
 
-      NaveDTO naveDTO = navesBD.obtenerNaveBD(pCodigoNave);
-      NaveGuerraDTO naveGuerraDTO = objectMapper.convertValue(naveDTO, NaveGuerraDTO.class);
-      naveGuerraDTO.setArmas(navesBD.obtenerArmasBD(pCodigoNave));
-      naveGuerraDTO.setVistas(navesBD.obtenerAlcanceVistaBD(pCodigoNave));
-      return naveGuerraDTO;
+      NaveDTO vNaveDTO = navesBD.obtenerNaveBD(pCodigoNave);
+      NaveGuerraDTO vNaveGuerraDTO = objectMapper.convertValue(vNaveDTO, NaveGuerraDTO.class);
+      vNaveGuerraDTO.setVistas(navesBD.obtenerAlcanceVistaBD(pCodigoNave));
+      return vNaveGuerraDTO;
   }
 
 }

@@ -35,20 +35,20 @@ public class ServicioPartida implements IServicioPartida {
 
   public PartidaDetalladaDTO retomarPartida(int pCodigoPartida){
 
-      PartidaDetalladaDTO partidaDetalladaDTO = new PartidaDetalladaDTO();
+      PartidaDetalladaDTO vPartidaDetalladaDTO = new PartidaDetalladaDTO();
       if(!existePartida(pCodigoPartida)) {
           throw new PartidaNoExisteException(String.format("La partida %s no existe en el sistema", pCodigoPartida));
       }
       else{
-          partidaDetalladaDTO.setPartida(this.partidaBD.obtenerPartidaPorIdDB(pCodigoPartida));
-          List<EquipoDTO> listaEquipos = this.equipoBD.obtenerEquiposPorPartidasBD(pCodigoPartida);
-          partidaDetalladaDTO.setEquipos(listaEquipos);
+          vPartidaDetalladaDTO.setPartida(this.partidaBD.obtenerPartidaPorIdDB(pCodigoPartida));
+          List<EquipoDTO> vListaEquipos = this.equipoBD.obtenerEquiposPorPartidasBD(pCodigoPartida);
+          vPartidaDetalladaDTO.setEquipos(vListaEquipos);
 
-          for (EquipoDTO equipo : listaEquipos) {
-            equipo.setNaves(this.equipoBD.obtenerNavesPorEquipoBD(equipo.getIdEquipo()));
+          for (EquipoDTO vEquipo : vListaEquipos) {
+              vEquipo.setNaves(this.equipoBD.obtenerNavesPorEquipoBD(vEquipo.getIdEquipo()));
           }
       }
-      return partidaDetalladaDTO;
+      return vPartidaDetalladaDTO;
   }
 
 

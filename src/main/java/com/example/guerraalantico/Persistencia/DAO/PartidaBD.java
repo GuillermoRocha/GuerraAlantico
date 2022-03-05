@@ -34,7 +34,7 @@ public class PartidaBD {
 
   public List<PartidaDTO> obtenerPartidasBD(String pUsername) throws PersistenciaException {
 
-    List<PartidaDTO> listaPartidas = new ArrayList<>();
+    List<PartidaDTO> vListaPartidas = new ArrayList<>();
     try {
       Connection con = DriverManager.getConnection
           (url, user, password);
@@ -45,9 +45,9 @@ public class PartidaBD {
       pstm.setString(1,pUsername);
       ResultSet rs = pstm.executeQuery();
       while(rs.next()){
-        PartidaDTO partidaDTO = new PartidaDTO(rs.getInt("ParIdPartida"), rs.getDate("ParFechaAlta"),
+        PartidaDTO vPartidaDTO = new PartidaDTO(rs.getInt("ParIdPartida"), rs.getDate("ParFechaAlta"),
                 rs.getDate("ParFechaGuardado"), rs.getBoolean("ParFinalizada"));
-        listaPartidas.add(partidaDTO);
+        vListaPartidas.add(vPartidaDTO);
       }
       rs.close();
       pstm.close();
@@ -56,7 +56,7 @@ public class PartidaBD {
     } catch (SQLException e) {
         throw new PersistenciaException();
     }
-    return listaPartidas;
+    return vListaPartidas;
 
   }
 
@@ -112,7 +112,7 @@ public class PartidaBD {
 
   public PartidaDTO obtenerPartidaPorIdDB(int pCodigoPartida) throws PersistenciaException {
 
-    PartidaDTO partidaDTO = new PartidaDTO();
+    PartidaDTO vPartidaDTO = new PartidaDTO();
     try {
       Connection con = DriverManager.getConnection
           (url, user, password);
@@ -122,10 +122,10 @@ public class PartidaBD {
 
       ResultSet rs = pstm.executeQuery();
       if(rs.next()){
-        partidaDTO.setIdPartida(rs.getInt("ParIdPartida"));
-        partidaDTO.setFechaAlta(rs.getDate("ParFechaAlta"));
-        partidaDTO.setFechaGuardado(rs.getDate("ParFechaGuardado"));
-        partidaDTO.setFinalizada(rs.getBoolean("ParFinalizada"));
+        vPartidaDTO.setIdPartida(rs.getInt("ParIdPartida"));
+        vPartidaDTO.setFechaAlta(rs.getDate("ParFechaAlta"));
+        vPartidaDTO.setFechaGuardado(rs.getDate("ParFechaGuardado"));
+        vPartidaDTO.setFinalizada(rs.getBoolean("ParFinalizada"));
       }
       rs.close();
       pstm.close();
@@ -134,7 +134,7 @@ public class PartidaBD {
     catch (SQLException e) {
       throw new PersistenciaException();
     }
-    return partidaDTO;
+    return vPartidaDTO;
   }
 
 
@@ -157,7 +157,7 @@ public class PartidaBD {
   }
 
     public boolean existePartidaBD (int pCodigoPartida){
-      boolean existe;
+      boolean vExiste;
 
       try {
         Connection con = DriverManager.getConnection
@@ -167,7 +167,7 @@ public class PartidaBD {
         pstm.setInt(1, pCodigoPartida);
 
         ResultSet rs = pstm.executeQuery();
-        existe = rs.next();
+        vExiste = rs.next();
 
         rs.close();
         pstm.close();
@@ -175,7 +175,7 @@ public class PartidaBD {
       } catch (SQLException e) {
           throw new PersistenciaException();
       }
-      return existe;
+      return vExiste;
 
     }
 

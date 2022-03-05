@@ -14,7 +14,6 @@ import lombok.Setter;
 public class NaveGuerra extends Nave {
 
 	private int profundidadActual;
-	private List<Arma> armas;
 	private List<AlcanceVista> vistas;
 
 	

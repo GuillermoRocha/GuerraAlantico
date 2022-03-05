@@ -37,7 +37,7 @@ public class EquipoBD {
 
   public  List<EquipoDTO> obtenerEquiposPorPartidasBD(int pCodigoPartida) throws PersistenciaException {
 
-    List<EquipoDTO> listaEquipos = new ArrayList<>();
+    List<EquipoDTO> vListaEquipos = new ArrayList<>();
 
     try {
       Connection con = DriverManager.getConnection
@@ -49,8 +49,8 @@ public class EquipoBD {
       pstm.setInt(1,pCodigoPartida);
       ResultSet rs = pstm.executeQuery();
       while(rs.next()){
-        EquipoDTO equipoDTO = new EquipoDTO(rs.getInt("EquIdEquipo"), rs.getInt("BanIdBando"), rs.getInt("UsuIdUsuario"));
-        listaEquipos.add(equipoDTO);
+        EquipoDTO vEquipoDTO = new EquipoDTO(rs.getInt("EquIdEquipo"), rs.getInt("BanIdBando"), rs.getInt("UsuIdUsuario"));
+        vListaEquipos.add(vEquipoDTO);
       }
       rs.close();
       pstm.close();
@@ -59,12 +59,12 @@ public class EquipoBD {
     catch (SQLException e) {
       throw new PersistenciaException(e.getMessage());
     }
-    return listaEquipos;
+    return vListaEquipos;
   }
 
   public  List<NaveDTO> obtenerNavesPorEquipoBD(int pCodigoEquipo) throws PersistenciaException {
 
-    List<NaveDTO> listaNaves = new ArrayList<>();
+    List<NaveDTO> vListaNaves = new ArrayList<>();
 
     try {
       Connection con = DriverManager.getConnection
@@ -76,11 +76,11 @@ public class EquipoBD {
       pstm.setInt(1,pCodigoEquipo);
       ResultSet rs = pstm.executeQuery();
       while(rs.next()){
-        NaveDTO naveDTO = new NaveDTO(rs.getInt("NavIdNave"), rs.getString("NavTipoNave"),
+        NaveDTO vNaveDTO = new NaveDTO(rs.getInt("NavIdNave"), rs.getString("NavTipoNave"),
                 rs.getInt("RENCoordenadasX"), rs.getInt("RenCoordenadasY"),
                 rs.getInt("RENResistenciaActual"), rs.getInt("RenProfundidadActual"),
                 rs.getInt("NavVelocidad"), rs.getFloat("RENRotacion"));
-        listaNaves.add(naveDTO);
+        vListaNaves.add(vNaveDTO);
       }
       rs.close();
       pstm.close();
@@ -89,7 +89,7 @@ public class EquipoBD {
     catch (SQLException e) {
       throw new PersistenciaException(e.getMessage());
     }
-    return listaNaves;
+    return vListaNaves;
   }
 
 

@@ -1,7 +1,6 @@
 package com.example.guerraalantico.Persistencia.DAO;
 
 import com.example.guerraalantico.DTO.AlcanceVistaDTO;
-import com.example.guerraalantico.DTO.ArmaDTO;
 import com.example.guerraalantico.DTO.NaveDTO;
 import com.example.guerraalantico.Excepciones.PersistenciaException;
 import com.example.guerraalantico.Persistencia.Consultas.Consultas;
@@ -35,7 +34,7 @@ public class NavesBD {
 
   public NaveDTO obtenerNaveBD(int pCodigoNave) throws PersistenciaException {
 
-    NaveDTO naveDTO = new NaveDTO();
+    NaveDTO vNaveDTO = new NaveDTO();
     try {
       Connection con = DriverManager.getConnection
           (url, user, password);
@@ -46,10 +45,10 @@ public class NavesBD {
       pstm.setInt(1,pCodigoNave);
       ResultSet rs = pstm.executeQuery();
       if(rs.next()){
-        naveDTO.setIdTipoNave(rs.getInt("NavIdNave"));
-        naveDTO.setTipoNave(rs.getString("NavTipoNave"));
-        naveDTO.setResistencia(rs.getInt("NavResistencia"));
-        naveDTO.setVelocidad(rs.getInt("NavVelocidad"));
+        vNaveDTO.setIdTipoNave(rs.getInt("NavIdNave"));
+        vNaveDTO.setTipoNave(rs.getString("NavTipoNave"));
+        vNaveDTO.setResistencia(rs.getInt("NavResistencia"));
+        vNaveDTO.setVelocidad(rs.getInt("NavVelocidad"));
       }
       rs.close();
       pstm.close();
@@ -58,14 +57,14 @@ public class NavesBD {
     } catch (SQLException e) {
       throw new PersistenciaException();
     }
-    return naveDTO;
+    return vNaveDTO;
 
   }
 
 
   public List<AlcanceVistaDTO> obtenerAlcanceVistaBD(int pCodigoNave) throws PersistenciaException {
 
-    List<AlcanceVistaDTO> listaAlcanceVistas = new ArrayList<>();
+    List<AlcanceVistaDTO> vListaAlcanceVistas = new ArrayList<>();
     try {
       Connection con = DriverManager.getConnection
           (url, user, password);
@@ -76,9 +75,9 @@ public class NavesBD {
       pstm.setInt(1,pCodigoNave);
       ResultSet rs = pstm.executeQuery();
       while(rs.next()){
-        AlcanceVistaDTO alcanceVistaDTO = new AlcanceVistaDTO(rs.getInt("NavProfundidadNave"),
+        AlcanceVistaDTO vAlcanceVistaDTO = new AlcanceVistaDTO(rs.getInt("NavProfundidadNave"),
             rs.getInt("NavProfundidadVista"), rs.getInt("RNPAlcanceVista"));
-        listaAlcanceVistas.add(alcanceVistaDTO);
+        vListaAlcanceVistas.add(vAlcanceVistaDTO);
       }
       rs.close();
       pstm.close();
@@ -87,35 +86,8 @@ public class NavesBD {
     } catch (SQLException e) {
       throw new PersistenciaException();
     }
-    return listaAlcanceVistas;
+    return vListaAlcanceVistas;
 
-  }
-
-  public List<ArmaDTO> obtenerArmasBD(int pCodigoNave) throws PersistenciaException {
-
-    List<ArmaDTO> listaArmas = new ArrayList<>();
-    try {
-      Connection con = DriverManager.getConnection
-          (url, user, password);
-
-      PreparedStatement pstm;
-      pstm = con.prepareStatement(consultas.obtenerArmasPorNave());
-
-      pstm.setInt(1,pCodigoNave);
-      ResultSet rs = pstm.executeQuery();
-      while(rs.next()){
-        ArmaDTO armaDTO = new ArmaDTO(rs.getInt("ArmIdArma"), rs.getString("ArmNombre"), rs.getInt("ArmDanio"),
-            rs.getInt("ArmAlcanceArma"), rs.getInt("ArmProfundidadLanzamiento"), rs.getInt("ArmProfundidadImpacto"));
-        listaArmas.add(armaDTO);
-      }
-      rs.close();
-      pstm.close();
-      con.close();
-
-    } catch (SQLException e) {
-      throw new PersistenciaException();
-    }
-    return listaArmas;
   }
 
 }

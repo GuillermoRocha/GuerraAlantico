@@ -21,13 +21,6 @@ public class Consultas {
         "WHERE UsuNombreUsuario = ?; ";
   }
 
-
-  public String obtenerEquiposPorUsario() {
-    return 	"SELECT * FROM GuerraAtlantico.Equipos " +
-        "WHERE UsuIdUsuario = ?;";
-  }
-
-
   public String obtenerEquiposPorPartida() {
     return 	"SELECT * FROM GuerraAtlantico.Equipos " +
         "WHERE ParIdPartida = ?;";
@@ -67,12 +60,6 @@ public class Consultas {
   }
 
 
-  public String obtenerArmasPorNave() {
-    return	"SELECT * FROM GuerraAtlantico.Armas " +
-        "WHERE NavIdNave = ?;";
-  }
-
-
   public String altaUsuario() {
     return	"INSERT INTO GuerraAtlantico.Usuarios (UsuNombreUsuario, UsuContrasenia) VALUES(?, ?)";
   }
@@ -83,10 +70,6 @@ public class Consultas {
     return 	"CALL GuerraAtlantico.AltaPartida(?, ?, ?)";
   }
 
-  public String obtenerEquiposPorUsuarioYPartida() {
-    return	"SELECT * FROM GuerraAtlantico.Equipos " +
-        "WHERE UsuIdUsuario = ? AND ParIdPartida = ?;";
-  }
 
   public String finalizarPartida(){
     return "UPDATE GuerraAtlantico.Partidas SET ParFechaGuardado = NOW(), ParFinalizada = 1 " +

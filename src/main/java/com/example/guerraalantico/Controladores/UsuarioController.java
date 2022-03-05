@@ -28,12 +28,6 @@ public class UsuarioController {
   public UsuarioDTO obtenerUsuario(@RequestBody UsuarioDTO pUsuario){
 
     return this.servicioUsuario.obtenerUsuario(pUsuario);
-//    if(usuarioDTO.getIdUsuario() != 0)
-//    {
-//      return new ResponseEntity<>(usuarioDTO, HttpStatus.OK);
-//    }
-//    else
-//      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
   }
 
 }
