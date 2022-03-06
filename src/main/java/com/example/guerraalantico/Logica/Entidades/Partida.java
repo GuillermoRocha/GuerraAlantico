@@ -1,6 +1,8 @@
 package com.example.guerraalantico.Logica.Entidades;
 
 import java.time.LocalDate;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,5 +19,6 @@ public class Partida {
 	private LocalDate fechaGuardado;
 	private boolean finalizada;
 	private String nombreUsuarioGanador;
+	private List<Equipo> equipos;
 
 }

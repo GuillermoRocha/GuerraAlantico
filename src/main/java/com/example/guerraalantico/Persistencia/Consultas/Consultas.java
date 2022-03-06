@@ -58,6 +58,7 @@ public class Consultas {
   }
 
   public String altaPartida() {
+
     return 	"CALL GuerraAtlantico.AltaPartida(?, ?, ?)";
   }
 
