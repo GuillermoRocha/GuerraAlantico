@@ -18,7 +18,6 @@ public class Partida {
 	private LocalDate fechaAlta;
 	private LocalDate fechaGuardado;
 	private boolean finalizada;
-	private String nombreUsuarioGanador;
 	private List<Equipo> equipos;
 
 }
