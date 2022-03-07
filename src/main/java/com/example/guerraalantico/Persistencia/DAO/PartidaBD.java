@@ -32,7 +32,7 @@ public class PartidaBD {
   private String password;
 
 
-  public List<PartidaDTO> obtenerPartidasBD(String pUsername) throws PersistenciaException {
+  public List<PartidaDTO> obtenerPartidasBD(int pIdUsuario) throws PersistenciaException {
 
     List<PartidaDTO> vListaPartidas = new ArrayList<>();
     try {
@@ -42,11 +42,12 @@ public class PartidaBD {
       PreparedStatement pstm;
       pstm = con.prepareStatement(consultas.obtenerPartidasPorUsario());
 
-      pstm.setString(1,pUsername);
+      pstm.setInt(1,pIdUsuario);
+      pstm.setInt(2,pIdUsuario);
       ResultSet rs = pstm.executeQuery();
       while(rs.next()){
         PartidaDTO vPartidaDTO = new PartidaDTO(rs.getInt("ParIdPartida"), rs.getDate("ParFechaAlta"),
-                rs.getDate("ParFechaGuardado"), rs.getBoolean("ParFinalizada"));
+                rs.getDate("ParFechaGuardado"), rs.getBoolean("ParFinalizada"), rs.getString("Rival"));
         vListaPartidas.add(vPartidaDTO);
       }
       rs.close();

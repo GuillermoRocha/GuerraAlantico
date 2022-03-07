@@ -19,6 +19,7 @@ public class PartidaDTO {
   private Date fechaAlta;
   private Date fechaGuardado;
   private boolean finalizada;
+  private String jugadorRival;
 
 
 }

@@ -28,10 +28,15 @@ public class Consultas {
 
 
   public String obtenerPartidasPorUsario() {
-   return "SELECT P.* FROM GuerraAtlantico.Equipos E "+
-          "JOIN GuerraAtlantico.Partidas P ON P.ParIdPartida = E.ParIdPartida "+
-          "JOIN GuerraAtlantico.Usuarios U ON U.UsuIdUsuario = E.UsuIdUsuario "+
-          "WHERE U.UsuNombreUsuario = ? AND P.ParFinalizada = 0 AND P.ParFechaGuardado IS NOT NULL;";
+   return  "SELECT P.*, U2.UsuNombreUsuario AS Rival FROM GuerraAtlantico.Equipos E " +
+                   "JOIN GuerraAtlantico.Partidas P ON P.ParIdPartida = E.ParIdPartida " +
+                   "JOIN GuerraAtlantico.Usuarios U ON U.UsuIdUsuario = E.UsuIdUsuario " +
+                   "JOIN GuerraAtlantico.Equipos E2 ON E2.ParIdPartida = P.ParIdPartida " +
+                   "JOIN GuerraAtlantico.Usuarios U2 ON U2.UsuIdUsuario = E2.UsuIdUsuario " +
+                   "WHERE  P.ParFinalizada = 0 " +
+                   "AND U.UsuIdUsuario = ? " +
+                   "AND U2.UsuIdUsuario <> ? " +
+                   "AND P.ParFechaGuardado IS NOT NULL;";
 
   }
 

@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface IServicioPartida {
 
-  List<PartidaDTO> obtenerPartidasPorUsuarioARetomar(String pNombreUsuario);
+  List<PartidaDTO> obtenerPartidasPorUsuarioARetomar(int pIdUsuario);
 
   PartidaDetalladaDTO retomarPartida(int pCodigoPartida);
 

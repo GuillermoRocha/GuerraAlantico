@@ -21,9 +21,9 @@ public class PartidaController {
   private IServicioPartida servicioPartida;
 
   @Operation(summary = "Obtener las partidas de un usuario")
-  @GetMapping("/partida/{pUsername}")
-  public List<PartidaDTO> obtenerPartidasPorUsuario(@PathVariable String pUsername){
-    return servicioPartida.obtenerPartidasPorUsuarioARetomar(pUsername);
+  @GetMapping("/partida/{pIdUsuario}")
+  public List<PartidaDTO> obtenerPartidasPorUsuario(@PathVariable int pIdUsuario){
+    return servicioPartida.obtenerPartidasPorUsuarioARetomar(pIdUsuario);
   }
 
   @Operation(summary = "Obtener los datos de una partida a retomar")

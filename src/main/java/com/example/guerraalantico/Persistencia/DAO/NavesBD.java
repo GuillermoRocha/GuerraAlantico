@@ -1,6 +1,5 @@
 package com.example.guerraalantico.Persistencia.DAO;
 
-import com.example.guerraalantico.DTO.AlcanceVistaDTO;
 import com.example.guerraalantico.DTO.NaveDTO;
 import com.example.guerraalantico.Excepciones.PersistenciaException;
 import com.example.guerraalantico.Persistencia.Consultas.Consultas;
@@ -9,8 +8,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

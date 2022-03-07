@@ -25,11 +25,8 @@ public class ServicioPartida implements IServicioPartida {
   private IServicioUsuario servicioUsuario;
 
 
-  public List<PartidaDTO> obtenerPartidasPorUsuarioARetomar(String pNombreUsuario){
-      if(servicioUsuario.existeUsuarioPorNombre(pNombreUsuario))
-          return this.partidaBD.obtenerPartidasBD(pNombreUsuario);
-      else
-          throw new UsuarioNoExisteException(String.format("El usuario %s no existe", pNombreUsuario));
+  public List<PartidaDTO> obtenerPartidasPorUsuarioARetomar(int pIdUsuario){
+          return this.partidaBD.obtenerPartidasBD(pIdUsuario);
   }
 
 
