@@ -33,24 +33,4 @@ public class ConfiguracionController {
     return servicioConfiguracion.obtenerDatosNavePorTipo(3);
   }
 
-  /*
-  @Operation(summary = "Obtener la configuración del carguero")
-  @GetMapping("/carguero")
-  public NaveDTO obtenerDatosCarguero(){
-    return servicioConfiguracion.obtenerDatosCarguero(1);
-  }
-
-  @Operation(summary = "Obtener la configuración del destructor")
-  @GetMapping("/destructor")
-  public NaveGuerraDTO obtenerDatosDestructor(){
-    return servicioConfiguracion.obtenerDatosDestructor(2);
-  }
-
-  @Operation(summary = "Obtener la configuración del submarino")
-  @GetMapping("/submarino")
-  public NaveGuerraDTO obtenerDatosSubmarino(){
-    return servicioConfiguracion.obtenerDatosSubmarino(3);
-  }
-
-   */
 }

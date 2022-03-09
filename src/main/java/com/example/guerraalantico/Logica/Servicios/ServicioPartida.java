@@ -2,9 +2,8 @@ package com.example.guerraalantico.Logica.Servicios;
 
 
 import com.example.guerraalantico.DTO.*;
-import com.example.guerraalantico.DTO.request.GuardarNaveDTO;
+import com.example.guerraalantico.DTO.GuardarNaveDTO;
 import com.example.guerraalantico.Excepciones.PartidaNoExisteException;
-import com.example.guerraalantico.Excepciones.UsuarioNoExisteException;
 import com.example.guerraalantico.Persistencia.DAO.EquipoBD;
 import com.example.guerraalantico.Persistencia.DAO.PartidaBD;
 

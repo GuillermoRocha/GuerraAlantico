@@ -1,7 +1,7 @@
 package com.example.guerraalantico.Persistencia.DAO;
 
 import com.example.guerraalantico.DTO.PartidaDTO;
-import com.example.guerraalantico.DTO.request.GuardarNaveDTO;
+import com.example.guerraalantico.DTO.GuardarNaveDTO;
 import com.example.guerraalantico.Excepciones.PersistenciaException;
 import com.example.guerraalantico.Persistencia.Consultas.Consultas;
 import java.sql.CallableStatement;

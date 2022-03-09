@@ -1,4 +1,4 @@
-package com.example.guerraalantico.DTO.request;
+package com.example.guerraalantico.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -3,7 +3,7 @@ package com.example.guerraalantico.Controladores;
 import com.example.guerraalantico.DTO.AltaPartidaDTO;
 import com.example.guerraalantico.DTO.PartidaDTO;
 import com.example.guerraalantico.DTO.PartidaDetalladaDTO;
-import com.example.guerraalantico.DTO.request.GuardarNaveDTO;
+import com.example.guerraalantico.DTO.GuardarNaveDTO;
 import com.example.guerraalantico.Logica.Servicios.IServicioPartida;
 
 import java.sql.SQLException;
