@@ -36,7 +36,8 @@ public class Consultas {
                    "WHERE  P.ParFinalizada = 0 " +
                    "AND U.UsuIdUsuario = ? " +
                    "AND U2.UsuIdUsuario <> ? " +
-                   "AND P.ParFechaGuardado IS NOT NULL;";
+                   "AND P.ParFechaGuardado IS NOT NULL " +
+                   "ORDER BY ParIdPartida DESC;";
 
   }
 
